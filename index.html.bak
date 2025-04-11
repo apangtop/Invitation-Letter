@@ -376,7 +376,7 @@
         /* 页面指示器 */
         .page-indicator {
             position: fixed;
-            right: 5px; 
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
@@ -408,17 +408,17 @@
         /* 向下滑动提示优化 */
         .scroll-indicator {
             position: absolute;
-            bottom: 15px; 
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
             color: rgba(255, 255, 255, 0.9);
-            font-size: 0.8rem; /* 原来是0.9rem，缩小字体 */
+            font-size: 0.9rem;
             animation: bounce 2s infinite;
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 6px 14px; /* 原来是8px 16px，缩小内边距 */
+            padding: 8px 16px;
             border-radius: 20px;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
@@ -428,8 +428,8 @@
         }
 
         .scroll-arrow {
-            font-size: 1.8rem; /* 原来是2rem，缩小箭头 */
-            margin-bottom: 3px; /* 原来是5px，减小下边距 */
+            font-size: 2rem;
+            margin-bottom: 5px;
         }
 
         @keyframes bounce {
@@ -796,11 +796,12 @@
             </div>
 
             <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh;">
-                <h3 class="golden-text animate-in" style="font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">歪脖子树 开出向阳花</h3>
+                <h3 class="golden-text animate-in" style="font-size: 2.2rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">歪脖子树 开出向阳花</h3>
                 <div style="width: 90%; max-width: 600px; position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <img src="img/z.png" alt="教师照片" style="width: 100%; display: block; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; padding: 20px 15px 15px; text-align: center;">
-
+                        <h4 style="margin: 0; font-size: 1.5rem; font-weight: normal;">曾琴</h4>
+                        <p style="margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9;">育人育心，做一个有温度的引路人</p>
                     </div>
                 </div>
             </div>
@@ -819,10 +820,12 @@
             </div>
 
             <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh;">
-                <h3 class="golden-text animate-in" style="font-size: 2.2rem;  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">育见不完美</h3>
+                <h3 class="golden-text animate-in" style="font-size: 2.2rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">育见不完美</h3>
                 <div style="width: 90%; max-width: 600px; position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <img src="img/ke.png" alt="教师照片" style="width: 100%; display: block; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; padding: 20px 15px 15px; text-align: center;">
+                        <h4 style="margin: 0; font-size: 1.5rem; font-weight: normal;">柯旺旺</h4>
+                        <p style="margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9;">任星河缥缈，不削其芒；教育之终，各有璀璨</p>
                     </div>
                 </div>
             </div>
@@ -841,10 +844,12 @@
             </div>
 
             <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh;">
-                <h3 class="golden-text animate-in" style="font-size: 2.0rem;  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">用爱叩响心门 以志引航成长</h3>
+                <h3 class="golden-text animate-in" style="font-size: 2.2rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">用爱叩响心门 以志引航成长</h3>
                 <div style="width: 90%; max-width: 600px; position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <img src="img/hy.png" alt="教师照片" style="width: 100%; display: block; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; padding: 20px 15px 15px; text-align: center;">
+                        <h4 style="margin: 0; font-size: 1.5rem; font-weight: normal;">黄娅</h4>
+                        <p style="margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9;">教育之灯，点亮心灵；以爱为舟，渡人至岸</p>
                     </div>
                 </div>
             </div>
@@ -863,10 +868,12 @@
             </div>
 
             <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh;">
-                <h3 class="golden-text animate-in" style="font-size: 2.2rem;  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">从"沉默萤"到"绽放蝶"</h3>
+                <h3 class="golden-text animate-in" style="font-size: 2.2rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">从"沉默萤"到"绽放蝶"</h3>
                 <div style="width: 90%; max-width: 600px; position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <img src="img/ao.png" alt="教师照片" style="width: 100%; display: block; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; padding: 20px 15px 15px; text-align: center;">
+                        <h4 style="margin: 0; font-size: 1.5rem; font-weight: normal;">敖欣欣</h4>
+                        <p style="margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9;">学为人师，行为世范；彼此成就，温暖前行</p>
                     </div>
                 </div>
             </div>
