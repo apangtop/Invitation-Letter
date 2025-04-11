@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信分享指南 - 培根铸魂，拔节青春</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #0046b1;
+        }
+        .container {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .step {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #0046b1;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .tip {
+            background-color: #fffaeb;
+            padding: 15px;
+            border-left: 4px solid #ffd700;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0046b1;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #003580;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>微信分享指南</h1>
+    <p>通过以下步骤，让您的邀请函在微信中显示精美的分享卡片</p>
+    
+    <div class="container">
+        <div class="step">
+            <h2><span class="step-number">1</span> 为什么微信预览不显示？</h2>
+            <p>微信对网页链接的预览有特殊的处理机制，需要特定的设置才能正确显示预览图片和标题。</p>
+        </div>
+        
+        <div class="step">
+            <h2><span class="step-number">2</span> 使用微信专用预览图片</h2>
+            <p>网站已配置为使用以下图片作为微信分享预览：</p>
+            <ul>
+                <li><strong>图片路径</strong>：img/weixin.png</li>
+                <li><strong>格式</strong>：PNG格式</li>
+                <li><strong>特点</strong>：包含活动名称和学校标志</li>
+            </ul>
+            <p>该图片已针对微信分享进行了优化，无需您进行额外操作。</p>
+        </div>
+        
+        <div class="step">
+            <h2><span class="step-number">3</span> 使用正确的分享链接</h2>
+            <p>在微信中分享时，使用以下链接：</p>
+            <code>https://apangtop.github.io/Invitation-Letter/wechat-thumbnail.html</code>
+            <p>而不是直接使用首页链接。这个特殊的缩略图页面会自动跳转到邀请函首页，但会提供更好的微信预览效果。</p>
+        </div>
+        
+        <div class="step">
+            <h2><span class="step-number">4</span> 刷新微信缓存</h2>
+            <p>如果之前分享过链接，微信可能会缓存旧的预览：</p>
+            <ul>
+                <li>在分享链接后添加随机参数，如 <code>?t=123</code></li>
+                <li>清除微信缓存：设置 → 通用 → 存储空间 → 清理</li>
+                <li>等待24小时让微信刷新缓存</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="tip">
+        <h3>提示：</h3>
+        <p>如果以上步骤仍无法解决问题，可以考虑使用第三方链接分享服务，如 <code>h5.baidu.com</code>、<code>weixinsxy.com</code> 等，它们专门针对微信分享进行了优化。</p>
+    </div>
+    
+    <a href="index.html" class="button">返回邀请函</a>
+</body>
+</html> 
