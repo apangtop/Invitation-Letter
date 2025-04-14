@@ -28,7 +28,7 @@
     <style>
         @font-face {
             font-family: 'ShangShouZhiZun';
-            src: url('fonts/ShangShouZhiZun.ttf') format('truetype');
+            src: url('./font/上首至尊书法体.ttf') format('truetype');
             font-display: swap;
         }
 
@@ -39,7 +39,7 @@
         }
 
         body {
-            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif;
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
@@ -662,11 +662,12 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 2px 6px rgba(160, 120, 0, 0.3);
             filter: brightness(1.05) contrast(1.1);
+            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif;
         }
 
         /* 添加字体加载状态类 */
         .fonts-loaded body {
-            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif;
         }
         
         .fonts-loading body {
@@ -675,7 +676,7 @@
 
         /* 添加微信环境下的字体回退 */
         .wechat-browser body {
-            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif !important;
         }
 
         /* 优化图片加载 */
@@ -890,7 +891,7 @@
                 </div>
             </div>
 
-            <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh;">
+            <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh; margin-top: -30px;">
                 <div style="width: 95%; max-width: 800px; position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <img src="img/hy.png" alt="教师照片" style="width: 100%; height: auto; object-fit: contain; display: block; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
@@ -902,14 +903,14 @@
         </section>
         
         <!-- 节目安排4 - 第八页 -->
-        <section class="page theme" id="page8">
+        <section class="page details" id="page8">
             <div class="school-info">
                 <div class="school-logo">
                     <img src="img/7.png" alt="重庆八中标志">
                 </div>
             </div>
 
-            <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh;">
+            <div style="text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85vh; margin-top: -30px;">
                 <div style="width: 95%; max-width: 800px; position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <img src="img/ao.png" alt="教师照片" style="width: 100%; height: auto; object-fit: contain; display: block; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
