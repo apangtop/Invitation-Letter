@@ -685,13 +685,33 @@
         /* 最小屏幕的额外优化 */
         @media screen and (max-width: 360px) {
             .poem-text {
-                font-size: 0.9rem !important;
-                margin-bottom: 0.35rem !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 0.3rem !important;
                 line-height: 1 !important;
             }
             
             #page2 .text-content {
-                padding-top: 40px !important;
+                padding-top: 30px !important;
+                padding-bottom: 40px !important;
+            }
+            
+            #page2 .content {
+                margin-top: 20px !important;
+                padding: 0 10px !important;
+            }
+            
+            /* 调整其他页面内容 */
+            .title-main[style*="font-size"] {
+                font-size: 2.2rem !important;
+            }
+            
+            .invitation-text[style*="font-size"] {
+                font-size: 1.1rem !important;
+            }
+            
+            .process-left, .process-right {
+                font-size: 1rem !important;
+                padding: 8px !important;
             }
         }
         
