@@ -27,7 +27,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            position: fixed; /* 修复iOS滚动问题 */
+            /* 修改为absolute定位，fixed可能导致性能问题 */
+            position: absolute;
             left: 0;
             top: 0;
             right: 0;
@@ -41,6 +42,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             font-size: 16px; /* 基础字体大小 */
+            will-change: transform; /* 提示浏览器优化滚动和动画 */
         }
 
         /* 容器样式 */
@@ -54,13 +56,18 @@
         .full-page-container {
             height: 100%;
             overflow-y: scroll;
-            scroll-snap-type: y mandatory;
+            /* 修改滚动行为，减少卡顿 */
+            scroll-snap-type: y proximity;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             z-index: 1;
+            -webkit-overflow-scrolling: touch; /* 提高iOS滚动性能 */
+            transform: translate3d(0,0,0); /* 强制硬件加速 */
+            backface-visibility: hidden;
+            perspective: 1000;
         }
         
         /* 页面样式 */
@@ -74,6 +81,7 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             scroll-snap-align: start;
+            will-change: opacity, transform; /* 提示浏览器优化动画 */
         }
 
         .page.active {
@@ -544,9 +552,10 @@
         
         /* 微信浏览器特殊调整 */
         .wechat-browser .full-page-container {
-            position: fixed;
+            position: absolute; /* 改为absolute以提高性能 */
             height: 100%;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* 确保流畅滚动 */
         }
         
         /* 三星手机兼容性修复 */
@@ -1166,18 +1175,16 @@
             // 初始化页面
             updateActivePage(0);
 
-            // 优化滚动事件处理，使用节流函数减少事件触发频率
+            // 优化滚动事件处理，使用防抖函数减少事件触发频率
+            let lastScrollTime = Date.now();
             container.addEventListener("scroll", function() {
-                if (!isScrolling) {
-                    isScrolling = true;
-                    clearTimeout(scrollTimeout);
-                    
-                    scrollTimeout = setTimeout(function() {
-                        checkActivePage();
-                        isScrolling = false;
-                    }, 50);
+                const now = Date.now();
+                // 每150ms最多处理一次滚动事件
+                if (now - lastScrollTime > 150) {
+                    lastScrollTime = now;
+                    checkActivePage();
                 }
-            });
+            }, {passive: true});
 
             // 点击页面指示器切换页面
             pageDots.forEach((dot, index) => {
@@ -1206,16 +1213,22 @@
 
             // 检查当前激活的页面
             function checkActivePage() {
+                if (isScrolling) return;
+                
                 const containerHeight = container.clientHeight;
-                let newActivePage = 0;
-
+                let newActivePage = currentPage; // 默认保持当前页
+                let minDistance = Infinity;
+                
+                // 找到最接近视口中心的页面
                 pages.forEach((page, index) => {
                     const rect = page.getBoundingClientRect();
-                    if (Math.abs(rect.top) < containerHeight / 2) {
+                    const distance = Math.abs(rect.top);
+                    if (distance < containerHeight / 2 && distance < minDistance) {
+                        minDistance = distance;
                         newActivePage = index;
                     }
                 });
-
+                
                 if (newActivePage !== currentPage) {
                     updateActivePage(newActivePage);
                 }
@@ -1247,15 +1260,23 @@
 
             // 激活动画
             function activateAnimations(page) {
+                // 先批量设置初始状态
                 const elements = page.querySelectorAll(".animate-in");
-                elements.forEach((el, index) => {
+                elements.forEach(el => {
                     el.style.opacity = 0;
                     el.style.transform = "translateY(20px)";
-
-                    setTimeout(() => {
-                        el.style.opacity = 1;
-                        el.style.transform = "translateY(0)";
-                    }, 100 + index * 100);
+                });
+                
+                // 然后使用requestAnimationFrame触发绘制
+                requestAnimationFrame(() => {
+                    elements.forEach((el, index) => {
+                        // 延迟执行减轻CPU负担
+                        setTimeout(() => {
+                            // 使用GPU加速
+                            el.style.opacity = 1;
+                            el.style.transform = "translateY(0) translateZ(0)";
+                        }, 50 + index * 80);
+                    });
                 });
             }
 
@@ -1266,28 +1287,40 @@
                     const startPosition = container.scrollTop;
                     const targetPosition = targetPage.offsetTop;
                     const distance = targetPosition - startPosition;
-                    const duration = 600; // 毫秒
+                    
+                    // 缩短动画时间减少卡顿感
+                    const duration = 300; // 毫秒
                     let startTime;
                     
+                    // 阻止用户滚动干扰
+                    let userScrolling = false;
+                    const scrollHandler = () => { userScrolling = true; };
+                    container.addEventListener('wheel', scrollHandler, { passive: true });
+                    container.addEventListener('touchmove', scrollHandler, { passive: true });
+                    
                     function animation(currentTime) {
+                        if (userScrolling) {
+                            // 用户开始自己滚动，中止动画
+                            container.removeEventListener('wheel', scrollHandler);
+                            container.removeEventListener('touchmove', scrollHandler);
+                            updateActivePage(index);
+                            return;
+                        }
+                        
                         if (!startTime) startTime = currentTime;
                         const elapsedTime = currentTime - startTime;
                         const progress = Math.min(elapsedTime / duration, 1);
-                        const easeProgress = easeInOutCubic(progress);
                         
-                        container.scrollTop = startPosition + distance * easeProgress;
+                        // 使用线性动画减少计算量
+                        container.scrollTop = startPosition + distance * progress;
                         
-                        if (elapsedTime < duration) {
+                        if (elapsedTime < duration && progress < 1) {
                             requestAnimationFrame(animation);
                         } else {
+                            container.removeEventListener('wheel', scrollHandler);
+                            container.removeEventListener('touchmove', scrollHandler);
                             updateActivePage(index);
                         }
-                    }
-                    
-                    function easeInOutCubic(t) {
-                        return t < 0.5 
-                            ? 4 * t * t * t 
-                            : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
                     }
                     
                     requestAnimationFrame(animation);
