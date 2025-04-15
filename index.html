@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>培根铸魂，拔节青春 - 第二届"我的教育故事"演讲暨答辩比赛</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <!-- 为微信添加专门的字体文件引用 -->
+    <link rel="stylesheet" href="data:text/css;base64,QGZvbnQtZmFjZSB7IGZvbnQtZmFtaWx5OiAnU2hhbmdTaG91WmhpWnVuJzsgc3JjOiB1cmwoJy4vZm9udC/kuIrmtL7oh7TlsI/kurrms5XkvZMudHRmJykgZm9ybWF0KCd0cnVldHlwZScpOyBmb250LWRpc3BsYXk6IHN3YXA7IH0=">
     <link rel="preload" href="./font/上首至尊书法体.ttf" as="font" type="font/ttf" crossorigin>
     
     <style>
@@ -660,7 +662,7 @@
 
         /* 添加微信环境下的字体回退 */
         .wechat-browser .special-text {
-            font-family: 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif !important;
+            font-family: 'ShangShouZhiZun', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif !important;
         }
 
         /* 优化图片加载 */
@@ -933,29 +935,70 @@
             return /MicroMessenger/i.test(navigator.userAgent);
         }
 
-        // 如果是微信环境，添加特定类名
+        // 手动加载字体文件函数
+        function loadFont() {
+            // 创建xhr请求获取字体
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './font/上首至尊书法体.ttf', true);
+            xhr.responseType = 'arraybuffer';
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // 创建CSS样式
+                    var style = document.createElement('style');
+                    style.innerHTML = "@font-face { font-family: 'ShangShouZhiZun'; src: url(data:font/ttf;base64," + 
+                        btoa(String.fromCharCode.apply(null, new Uint8Array(xhr.response))) + 
+                        ") format('truetype'); font-display: block; }";
+                    document.head.appendChild(style);
+                    
+                    // 添加加载完成类
+                    document.documentElement.classList.remove('fonts-loading');
+                    document.documentElement.classList.add('fonts-loaded');
+                }
+            };
+            
+            xhr.send();
+        }
+
+        // 如果是微信环境，使用特定处理
         if (isWechatBrowser()) {
             document.documentElement.classList.add('wechat-browser');
+            document.documentElement.classList.add('fonts-loading');
+            
+            // DOM加载完成后尝试加载字体
+            document.addEventListener('DOMContentLoaded', function() {
+                // 延迟加载以确保微信WebView准备就绪
+                setTimeout(loadFont, 500);
+                
+                // 添加隐藏元素触发字体渲染
+                var fontTrigger = document.createElement('div');
+                fontTrigger.style.cssText = "position:absolute; visibility:hidden; font-family:'ShangShouZhiZun';";
+                fontTrigger.textContent = "字体加载测试";
+                document.body.appendChild(fontTrigger);
+            });
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             // 先使用系统字体完成页面渲染
-            document.documentElement.classList.add('fonts-loading');
-            
-            // 延迟加载自定义字体
-            setTimeout(function() {
-                var font = new FontFace('ShangShouZhiZun', 'url(./font/上首至尊书法体.ttf)', {
-                    display: 'swap'
-                });
+            if (!isWechatBrowser()) {
+                document.documentElement.classList.add('fonts-loading');
                 
-                font.load().then(function() {
-                    document.fonts.add(font);
-                    document.documentElement.classList.remove('fonts-loading');
-                    document.documentElement.classList.add('fonts-loaded');
-                }).catch(function() {
-                    document.documentElement.classList.remove('fonts-loading');
-                });
-            }, 500); // 延迟500毫秒加载字体
+                // 延迟加载自定义字体
+                setTimeout(function() {
+                    var font = new FontFace('ShangShouZhiZun', 'url(./font/上首至尊书法体.ttf)', {
+                        display: 'swap'
+                    });
+                    
+                    font.load().then(function() {
+                        document.fonts.add(font);
+                        document.documentElement.classList.remove('fonts-loading');
+                        document.documentElement.classList.add('fonts-loaded');
+                    }).catch(function(err) {
+                        console.error('字体加载失败', err);
+                        document.documentElement.classList.remove('fonts-loading');
+                    });
+                }, 500); // 延迟500毫秒加载字体
+            }
 
             const pages = document.querySelectorAll(".page");
             const pageDots = document.querySelectorAll(".page-dot");
