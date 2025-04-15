@@ -735,8 +735,8 @@
             </div>
 
             <div style="margin-top: 130px; text-align: center;">
-                <h1 class="title-main golden-text animate-in special-text" style="font-size: 6rem; line-height: 1.4;">培根铸魂</h1>
-                <h1 class="title-main golden-text animate-in delay-1 special-text" style="font-size: 4.8rem; line-height: 1.4;">拔节青春</h1>
+                <h1 class="title-main golden-text animate-in special-text" style="font-size: 5.5rem; line-height: 1.4;">培根铸魂</h1>
+                <h1 class="title-main golden-text animate-in delay-1 special-text" style="font-size: 4.3rem; line-height: 1.4;">拔节青春</h1>
                 <div class="decoration"></div>
                 <h2 class="title-sub golden-text animate-in delay-2 special-text" style="font-size: 1.9rem;">第二届"我的教育故事"演讲暨答辩比赛</h2>
                 <h2 class="title-sub golden-text animate-in delay-2 special-text" style="margin-top: 30px; font-size: 1.9rem;">重庆八中腾芳中学</h2>
@@ -945,6 +945,12 @@
             document.documentElement.classList.add('wechat-browser');
         }
 
+        // 声明全局变量，确保各个事件处理函数都能访问
+        let bgMusic;
+        let musicControl;
+        let isMusicPlaying = false;
+        let autoPlayAttempted = false;
+
         // 页面加载完成后执行
         window.addEventListener('load', function() {
             // 添加内联字体样式
@@ -978,6 +984,17 @@
                 // 标记字体已加载
                 document.documentElement.classList.add('fonts-loaded');
             }, 1000);
+
+            // 初始化音乐元素
+            bgMusic = document.getElementById("bgMusic");
+            musicControl = document.getElementById("musicControl");
+            
+            if (bgMusic && musicControl) {
+                // 预加载音乐并尝试自动播放
+                bgMusic.volume = 0.7;
+                bgMusic.load();
+                setTimeout(tryAutoPlayMusic, 1000);
+            }
         });
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -1140,54 +1157,146 @@
             // 初始激活第一页动画
             activateAnimations(pages[0]);
 
-            // 背景音乐控制
-            const musicControl = document.getElementById("musicControl");
-            const bgMusic = document.getElementById("bgMusic");
-            let isMusicPlaying = false;
-
-            // 自动播放尝试
-            function tryAutoPlayMusic() {
-                // 尝试自动播放（可能会被浏览器阻止）
-                const playPromise = bgMusic.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        // 自动播放成功
-                        isMusicPlaying = true;
-                        musicControl.classList.add("playing");
-                        musicControl.classList.remove("music-pause");
-                    }).catch(() => {
-                        // 自动播放失败，需要用户交互后播放
-                        isMusicPlaying = false;
-                        musicControl.classList.remove("playing");
-                        musicControl.classList.add("music-pause");
-                    });
-                }
+            // 音乐控制
+            bgMusic = document.getElementById("bgMusic");
+            musicControl = document.getElementById("musicControl");
+            
+            if (musicControl) {
+                // 点击音乐控制按钮切换播放/暂停
+                musicControl.addEventListener("click", function() {
+                    if (isMusicPlaying) {
+                        pauseMusic();
+                    } else {
+                        playMusic();
+                    }
+                });
             }
-
-            // 文档加载完后尝试播放背景音乐
-            window.addEventListener("load", tryAutoPlayMusic);
-
-            // 点击音乐控制按钮切换播放/暂停
-            musicControl.addEventListener("click", function() {
-                if (isMusicPlaying) {
-                    bgMusic.pause();
-                    musicControl.classList.remove("playing");
-                    musicControl.classList.add("music-pause");
-                } else {
-                    bgMusic.play();
+            
+            // 给音频添加canplaythrough事件监听
+            if (bgMusic) {
+                bgMusic.addEventListener('canplaythrough', function() {
+                    if (!autoPlayAttempted) {
+                        tryAutoPlayMusic();
+                    }
+                });
+            }
+            
+            // 尝试在页面加载后播放音乐
+            setTimeout(tryAutoPlayMusic, 1500);
+        });
+        
+        // 自动播放音乐函数
+        function tryAutoPlayMusic() {
+            if (!bgMusic) {
+                bgMusic = document.getElementById("bgMusic");
+            }
+            if (!musicControl) {
+                musicControl = document.getElementById("musicControl");
+            }
+            
+            if (!bgMusic || !musicControl) {
+                return;
+            }
+            
+            autoPlayAttempted = true;
+            
+            // 解锁音频上下文（iOS需要）
+            unlockAudioContext();
+            
+            // 先设置静音，增加自动播放成功率，稍后恢复音量
+            bgMusic.muted = true;
+            
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // 自动播放成功，0.5秒后取消静音
+                    setTimeout(() => {
+                        bgMusic.muted = false;
+                        bgMusic.volume = 0.7;
+                    }, 500);
+                    
+                    isMusicPlaying = true;
                     musicControl.classList.add("playing");
                     musicControl.classList.remove("music-pause");
-                }
-                isMusicPlaying = !isMusicPlaying;
-            });
+                    
+                    // 记录播放状态
+                    try {
+                        localStorage.setItem('music-playing', 'true');
+                    } catch (e) {}
+                }).catch(() => {
+                    // 自动播放失败，需要用户交互后播放
+                    isMusicPlaying = false;
+                    musicControl.classList.remove("playing");
+                    musicControl.classList.add("music-pause");
+                    bgMusic.muted = false;
+                });
+            }
+        }
+        
+        // 播放音乐函数
+        function playMusic() {
+            if (!bgMusic) return;
+            
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isMusicPlaying = true;
+                    musicControl.classList.add("playing");
+                    musicControl.classList.remove("music-pause");
+                }).catch(() => {
+                    // 播放失败，可能是浏览器阻止了自动播放
+                    isMusicPlaying = false;
+                    musicControl.classList.remove("playing");
+                    musicControl.classList.add("music-pause");
+                });
+            }
+        }
+        
+        // 暂停音乐函数
+        function pauseMusic() {
+            if (!bgMusic) return;
+            
+            bgMusic.pause();
+            isMusicPlaying = false;
+            musicControl.classList.remove("playing");
+            musicControl.classList.add("music-pause");
+        }
+        
+        // 解锁音频上下文（特别是针对iOS）
+        function unlockAudioContext() {
+            if (!bgMusic) return;
+            
+            // 创建一个空的AudioContext
+            let AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                let audioCtx = new AudioContext();
+                
+                // 创建空白音频并播放解锁
+                let emptyBuffer = audioCtx.createBuffer(1, 1, 22050);
+                let source = audioCtx.createBufferSource();
+                source.buffer = emptyBuffer;
+                source.connect(audioCtx.destination);
+                source.start(0);
+            }
+        }
+        
+        // 添加用户交互事件监听，尝试播放音乐
+        document.addEventListener('click', function() {
+            if (!isMusicPlaying && !autoPlayAttempted) {
+                tryAutoPlayMusic();
+            }
+        }, { once: true });
 
-            // 用户首次交互时尝试播放音乐（解决移动设备自动播放限制）
-            document.body.addEventListener("click", function() {
-                if (!isMusicPlaying) {
-                    tryAutoPlayMusic();
+        // 监听visibilitychange事件，页面从隐藏变为可见时恢复播放
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                // 检查之前是否正在播放
+                if (isMusicPlaying) {
+                    playMusic();
                 }
-            }, { once: true });
+            }
         });
     </script>
 </body>
