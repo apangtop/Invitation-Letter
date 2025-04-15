@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>培根铸魂，拔节青春 - 第二届"我的教育故事"演讲暨答辩比赛</title>
+    <title>重庆八中腾芳中学校 - 邀请函</title>
+    <!-- 为微信分享设置标题和描述 -->
+    <meta itemprop="name" content="重庆八中腾芳中学校">
+    <meta itemprop="description" content="邀请函">
+    <meta itemprop="image" content="https://tengfang-invitation.netlify.app/img/3.png">
+    <!-- 为微信分享设置Open Graph标签 -->
+    <meta property="og:title" content="重庆八中腾芳中学校">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="邀请函">
+    <meta property="og:image" content="https://tengfang-invitation.netlify.app/img/3.png">
+    <meta property="og:url" content="https://tengfang-invitation.netlify.app/">
+    <!-- 为其他分享平台设置标签 -->
+    <meta name="description" content="邀请函">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
     <!-- 为微信添加专门的字体文件引用 -->
     <link rel="stylesheet" href="data:text/css;base64,QGZvbnQtZmFjZSB7IGZvbnQtZmFtaWx5OiAnU2hhbmdTaG91WmhpWnVuJzsgc3JjOiB1cmwoJy4vZm9udC/kuIrmtL7oh7TlsI/kurrms5XkvZMudHRmJykgZm9ybWF0KCd0cnVldHlwZScpOyBmb250LWRpc3BsYXk6IHN3YXA7IH0=">
@@ -990,7 +1002,28 @@
             }
 
             // 设置页面标题，优化微信分享
-            document.title = "培根铸魂，拔节青春 - 教育故事演讲答辩比赛邀请函";
+            document.title = "重庆八中腾芳中学校 - 邀请函";
+
+            // 微信环境下添加分享配置信息
+            if (isWechat()) {
+                // 如果页面中有JSSDK，则使用JSSDK进行配置
+                if (typeof wx !== 'undefined' && wx.updateAppMessageShareData) {
+                    wx.ready(function() {
+                        wx.updateAppMessageShareData({ 
+                            title: '重庆八中腾芳中学校', 
+                            desc: '邀请函', 
+                            link: window.location.href, 
+                            imgUrl: 'https://tengfang-invitation.netlify.app/img/3.png'
+                        });
+                    });
+                }
+                
+                // 添加一个额外的元素帮助微信抓取图片
+                var shareImageHelper = document.createElement('div');
+                shareImageHelper.style.cssText = 'position:absolute; width:1px; height:1px; opacity:0.01; overflow:hidden;';
+                shareImageHelper.innerHTML = '<img src="https://tengfang-invitation.netlify.app/img/3.png" alt="重庆八中腾芳中学校邀请函">';
+                document.body.appendChild(shareImageHelper);
+            }
 
             // 确保页面指示器与实际页面数量一致
             if (pageDots.length !== pages.length) {
