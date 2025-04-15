@@ -461,6 +461,99 @@
             }
         }
 
+        /* 添加更多响应式断点，更精细地控制不同屏幕尺寸 */
+        @media (max-width: 480px) {
+            .title-main.golden-text[style*="font-size: 5.5rem"] {
+                font-size: 3.2rem !important;
+            }
+            
+            .title-main.golden-text[style*="font-size: 4.3rem"] {
+                font-size: 2.6rem !important;
+            }
+            
+            .title-sub.golden-text[style*="font-size: 1.9rem"] {
+                font-size: 1.5rem !important;
+            }
+            
+            .section-title[style*="font-size: 3rem"] {
+                font-size: 2.2rem !important;
+            }
+            
+            .section-title[style*="font-size: 4rem"] {
+                font-size: 2.5rem !important;
+            }
+            
+            .process-left[style*="font-size: 1.6rem"] {
+                font-size: 1.2rem !important;
+                padding: 12px !important;
+            }
+            
+            .process-right[style*="font-size: 1.6rem"] {
+                font-size: 1.2rem !important;
+                padding: 12px !important;
+            }
+            
+            .final-text p[style*="font-size: 1.8rem"] {
+                font-size: 1.4rem !important;
+            }
+            
+            .final-text p[style*="font-size: 1.5rem"] {
+                font-size: 1.2rem !important;
+            }
+            
+            .invitation-text[style*="font-size: 1.8rem"] {
+                font-size: 1.3rem !important;
+            }
+        }
+        
+        /* 中等尺寸手机 */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .title-main.golden-text[style*="font-size: 5.5rem"] {
+                font-size: 4rem !important;
+            }
+            
+            .title-main.golden-text[style*="font-size: 4.3rem"] {
+                font-size: 3.2rem !important;
+            }
+        }
+        
+        /* 针对不同的设备像素比进行优化 */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            /* 针对高分辨率屏幕的字体大小调整 */
+            html {
+                -webkit-text-size-adjust: 100%;
+            }
+        }
+        
+        /* 确保页面不会因为内容过大而水平滚动 */
+        body, .container, .page {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* 针对不同屏幕高度的优化 */
+        @media (max-height: 700px) {
+            .title-main.golden-text[style*="font-size"] {
+                font-size: 2.8rem !important;
+            }
+            
+            .title-sub.golden-text[style*="font-size"] {
+                font-size: 1.3rem !important;
+            }
+            
+            .decoration {
+                margin: 10px auto;
+            }
+            
+            .process-container {
+                margin: 15px auto;
+            }
+            
+            .process-item {
+                margin-bottom: 10px;
+            }
+        }
+
         /* 流程安排样式优化 */
         .process-container {
             width: 90%;
