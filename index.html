@@ -554,6 +554,83 @@
             }
         }
 
+        /* 针对微信浏览器特别优化 */
+        .wechat-browser .title-main.golden-text[style*="font-size"] {
+            font-size: 2.6rem !important;
+        }
+        
+        .wechat-browser .title-sub.golden-text[style*="font-size"] {
+            font-size: 1.3rem !important;
+        }
+        
+        .wechat-browser .section-title[style*="font-size"] {
+            font-size: 2.2rem !important;
+        }
+        
+        .wechat-browser .process-left[style*="font-size"],
+        .wechat-browser .process-right[style*="font-size"] {
+            font-size: 1.1rem !important;
+            padding: 10px !important;
+        }
+        
+        .wechat-browser .final-text p[style*="font-size"] {
+            font-size: 1.2rem !important;
+        }
+        
+        .wechat-browser .invitation-text[style*="font-size"] {
+            font-size: 1.2rem !important;
+        }
+        
+        /* 进一步优化 - 强制对所有内联样式进行覆盖 */
+        @media (max-width: 767px) {
+            [style*="font-size"] {
+                font-size: 1.5rem !important;
+            }
+            
+            h1[style*="font-size"] {
+                font-size: 2.5rem !important;
+            }
+            
+            h2[style*="font-size"] {
+                font-size: 1.8rem !important;
+            }
+            
+            h3[style*="font-size"] {
+                font-size: 1.5rem !important;
+            }
+            
+            .title-main[style*="font-size: 5.5rem"],
+            .title-main[style*="font-size: 5rem"],
+            .title-main[style*="font-size: 4rem"] {
+                font-size: 2.8rem !important;
+            }
+            
+            .title-main[style*="font-size: 4.3rem"],
+            .title-main[style*="font-size: 3rem"] {
+                font-size: 2.3rem !important;
+            }
+        }
+        
+        /* 额外的样式修复 */
+        @media screen and (max-width: 767px) {
+            .school-info {
+                top: 5px;
+            }
+            
+            .school-logo {
+                width: 200px;
+                height: 60px;
+            }
+            
+            div[style*="margin-top: 130px"] {
+                margin-top: 80px !important;
+            }
+            
+            .scroll-indicator {
+                bottom: 5px;
+            }
+        }
+
         /* 流程安排样式优化 */
         .process-container {
             width: 90%;
