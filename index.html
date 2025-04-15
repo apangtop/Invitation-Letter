@@ -660,6 +660,23 @@
             }
         }
         
+        /* 进一步优化字体大小 - 更小的字体尺寸 */
+        @media screen and (max-width: 414px) {
+            .poem-text {
+                font-size: 1.1rem !important;
+                margin-bottom: 0.5rem !important;
+                line-height: 1.1 !important;
+            }
+            
+            #page2 .content {
+                padding: 0 15px !important;
+            }
+            
+            .detail-item, .process-item {
+                margin-bottom: 10px !important;
+            }
+        }
+        
         /* 确保第二页内容总是可见且可滚动 */
         #page2.active .content {
             max-height: 100%;
@@ -1214,14 +1231,6 @@
             // 微信分享优化
             function isWechat() {
                 return /MicroMessenger/i.test(navigator.userAgent);
-            }
-
-            // 为微信分享添加调试信息
-            if (isWechat()) {
-                const debugInfo = document.createElement('div');
-                debugInfo.style.cssText = 'position:fixed;bottom:5px;right:5px;z-index:9999;background:rgba(0,0,0,0.5);color:white;padding:5px;font-size:10px;border-radius:3px;';
-                debugInfo.textContent = '微信环境已检测 | 分享准备就绪';
-                document.body.appendChild(debugInfo);
             }
 
             // 设置页面标题，优化微信分享
