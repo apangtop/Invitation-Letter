@@ -3,30 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>重庆八中腾芳中学校 - 邀请函</title>
-    <!-- 为微信分享设置标题和描述 -->
-    <meta itemprop="name" content="重庆八中腾芳中学校">
-    <meta itemprop="description" content="邀请函">
-    <meta itemprop="image" content="https://tengfang-invitation.netlify.app/img/3.png">
-    <!-- 为微信分享设置Open Graph标签 -->
-    <meta property="og:title" content="重庆八中腾芳中学校">
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="邀请函">
-    <meta property="og:image" content="https://tengfang-invitation.netlify.app/img/3.png">
-    <meta property="og:url" content="https://tengfang-invitation.netlify.app/">
-    <!-- 为其他分享平台设置标签 -->
-    <meta name="description" content="邀请函">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
     <!-- 为微信添加专门的字体文件引用 -->
     <link rel="stylesheet" href="data:text/css;base64,QGZvbnQtZmFjZSB7IGZvbnQtZmFtaWx5OiAnU2hhbmdTaG91WmhpWnVuJzsgc3JjOiB1cmwoJy4vZm9udC/kuIrmtL7oh7TlsI/kurrms5XkvZMudHRmJykgZm9ybWF0KCd0cnVldHlwZScpOyBmb250LWRpc3BsYXk6IHN3YXA7IH0=">
     <link rel="preload" href="./font/上首至尊书法体.ttf" as="font" type="font/ttf" crossorigin>
     
     <style>
-        /* 暂时不使用自定义字体，先用系统字体保证页面加载速度 */
+        /* 重置样式和基础设置 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed; /* 修复iOS滚动问题 */
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
         }
 
         body {
@@ -35,48 +40,45 @@
             color: #333;
             line-height: 1.6;
             overflow-x: hidden;
+            font-size: 16px; /* 基础字体大小 */
         }
 
+        /* 容器样式 */
         .container {
             width: 100%;
+            height: 100%;
             overflow: hidden;
+            position: relative;
         }
 
-        .page {
+        .full-page-container {
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+        
+        /* 页面样式 */
+        .page {
+            position: relative;
             width: 100%;
             height: 100%;
+            min-height: 100vh; /* 确保至少占满视窗高度 */
+            overflow: hidden;
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease;
+            scroll-snap-align: start;
         }
 
         .page.active {
             visibility: visible;
             opacity: 1;
-        }
-
-        .full-page-container {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-        }
-
-        /* 封面页样式 */
-        .cover {
-            background: url("img/1.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
         }
 
         .school-info {
@@ -437,147 +439,139 @@
             }
         }
 
-        /* 响应式调整 */
-        @media (max-width: 380px) {
+        /* 增强的响应式设计 */
+        /* 特小屏幕设备 (小于 320px) */
+        @media (max-width: 320px) {
+            body {
+                font-size: 14px;
+            }
+            
             .title-main {
-                font-size: 2.2rem;
+                font-size: 1.8rem !important;
             }
-
+            
+            .title-sub {
+                font-size: 1rem !important;
+            }
+            
+            .section-title {
+                font-size: 1.6rem !important;
+            }
+            
             .invitation-text {
-                font-size: 1rem;
+                font-size: 1rem !important;
+                padding: 10px !important;
             }
-
-            .detail-item {
-                padding: 12px;
+            
+            .process-left, .process-right {
+                font-size: 0.9rem !important;
+                padding: 10px !important;
             }
-
-            .detail-icon {
-                width: 40px;
-                height: 40px;
-            }
-
-            .detail-text {
-                font-size: 1rem;
+            
+            .school-logo {
+                width: 180px !important;
             }
         }
-
-        /* 流程安排样式优化 */
-        .process-container {
-            width: 90%;
-            max-width: 500px;
-            margin: 30px auto 20px;
+        
+        /* 小屏幕设备 (320px - 480px) */
+        @media (min-width: 321px) and (max-width: 480px) {
+            body {
+                font-size: 15px;
+            }
+            
+            .title-main {
+                font-size: 2rem !important;
+            }
+            
+            .invitation-text {
+                font-size: 1.2rem !important;
+            }
+            
+            .process-container {
+                width: 95% !important;
+            }
         }
-
-        .process-item {
-            display: flex;
-            margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+        
+        /* 中等屏幕设备 (481px - 768px) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .title-main {
+                font-size: 2.8rem !important;
+            }
+            
+            .invitation-text {
+                max-width: 85% !important;
+            }
         }
-
-        .process-left {
-            width: 130px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #ffffff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            font-size: 1.1rem;
-            font-family: 'CustomFont', serif;
+        
+        /* 高DPI设备 */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            body {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
         }
-
-        .process-right {
-            flex: 1;
-            padding: 15px;
-            color: #ffffff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            font-family: 'CustomFont', serif;
+        
+        /* iOS设备特殊修复 */
+        @supports (-webkit-touch-callout: none) {
+            .full-page-container {
+                /* 修复iOS上滚动卡顿问题 */
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .page {
+                /* 确保iOS上页面高度正确 */
+                height: 100vh;
+                /* 修复iOS上height:100vh问题 */
+                height: -webkit-fill-available;
+            }
         }
-
-        /* 节目安排样式 */
-        .program-content {
-            width: 90%;
-            margin: 20px auto;
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+        
+        /* 安卓设备特殊修复 */
+        @supports not (-webkit-touch-callout: none) {
+            .page {
+                /* 标准设备使用视口单位 */
+                height: 100vh;
+            }
         }
-
-        .program-title {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: #ffdf7f;
-            text-align: center;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            font-family: 'CustomFont', serif;
+        
+        /* 华为/小米等国产手机特殊修复 */
+        @media screen and (max-aspect-ratio: 1/1) {
+            .title-main.golden-text {
+                /* 调整字体渲染 */
+                text-rendering: optimizeLegibility;
+            }
         }
-
-        .program-desc {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            text-align: center;
-            color: #ffffff;
-            font-family: 'CustomFont', serif;
+        
+        /* 微信浏览器特殊调整 */
+        .wechat-browser .full-page-container {
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
         }
-
-        .program-details {
-            color: #ffffff;
-            line-height: 1.8;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            font-family: 'CustomFont', serif;
+        
+        /* 三星手机兼容性修复 */
+        @supports (-webkit-appearance:none) and (not (overflow:-webkit-marquee)) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
+            .page {
+                /* 三星浏览器滚动修复 */
+                scroll-snap-align: start;
+            }
         }
-
-        .program-details p {
-            margin-bottom: 8px;
-        }
-
-        /* 结束页样式 */
-        .final-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            text-align: center;
-            margin: 30px 0;
-            color: #ffffff;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            font-family: 'CustomFont', serif;
-        }
-
-        .footer-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .logo-container {
-            width: 100px;
-            height: 100px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 5px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .logo-container img {
-            width: 90%;
-            height: auto;
+        
+        /* 兼容性处理类 */
+        .hardware-accelerated {
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            -moz-perspective: 1000;
+            -ms-perspective: 1000;
+            perspective: 1000;
         }
 
         /* 更新音乐控制按钮样式为与图片一致的设计 */
@@ -699,6 +693,137 @@
             bottom: 0;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+        }
+
+        /* 封面页样式 */
+        .cover {
+            background: url("img/1.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* 流程安排样式优化 */
+        .process-container {
+            width: 90%;
+            max-width: 500px;
+            margin: 30px auto 20px;
+        }
+
+        .process-item {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .process-left {
+            width: 130px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1.1rem;
+            font-family: 'CustomFont', serif;
+        }
+
+        .process-right {
+            flex: 1;
+            padding: 15px;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            font-family: 'CustomFont', serif;
+        }
+
+        /* 节目安排样式 */
+        .program-content {
+            width: 90%;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .program-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #ffdf7f;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-family: 'CustomFont', serif;
+        }
+
+        .program-desc {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #ffffff;
+            font-family: 'CustomFont', serif;
+        }
+
+        .program-details {
+            color: #ffffff;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-family: 'CustomFont', serif;
+        }
+
+        .program-details p {
+            margin-bottom: 8px;
+        }
+
+        /* 结束页样式 */
+        .final-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+            margin: 30px 0;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-family: 'CustomFont', serif;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-container img {
+            width: 90%;
+            height: auto;
         }
     </style>
 </head>
@@ -945,8 +1070,38 @@
             document.documentElement.classList.add('wechat-browser');
         }
 
+        // 添加设备类型识别
+        function detectDevice() {
+            var ua = navigator.userAgent;
+            var html = document.documentElement;
+            
+            // 检测iOS设备
+            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+                html.classList.add('ios-device');
+            } 
+            // 检测Android设备
+            else if (/android/i.test(ua)) {
+                html.classList.add('android-device');
+            }
+            // 检测小屏幕设备
+            if (window.innerWidth < 480) {
+                html.classList.add('small-screen');
+            }
+            // 检测特定厂商手机
+            if (/HUAWEI|Honor|OPPO|vivo|Xiaomi|MI|Redmi/i.test(ua)) {
+                html.classList.add('chinese-device');
+            }
+            // 检测三星设备
+            if (/samsung/i.test(ua)) {
+                html.classList.add('samsung-device');
+            }
+        }
+
         // 页面加载完成后执行
         window.addEventListener('load', function() {
+            // 添加设备检测类
+            detectDevice();
+            
             // 添加内联字体样式
             var fontStyleElement = document.createElement('style');
             fontStyleElement.innerHTML = `
@@ -978,6 +1133,20 @@
                 // 标记字体已加载
                 document.documentElement.classList.add('fonts-loaded');
             }, 1000);
+            
+            // 修复iOS滚动问题
+            if (document.documentElement.classList.contains('ios-device')) {
+                var containers = document.querySelectorAll('.full-page-container');
+                containers.forEach(function(container) {
+                    container.style.webkitOverflowScrolling = 'touch';
+                });
+            }
+            
+            // 添加页面硬件加速以提高渲染性能
+            var pages = document.querySelectorAll('.page');
+            pages.forEach(function(page) {
+                page.classList.add('hardware-accelerated');
+            });
         });
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -987,43 +1156,7 @@
             let currentPage = 0;
             let touchStartY = 0;
             let isScrolling = false;
-
-            // 微信分享优化
-            function isWechat() {
-                return /MicroMessenger/i.test(navigator.userAgent);
-            }
-
-            // 为微信分享添加调试信息
-            if (isWechat()) {
-                const debugInfo = document.createElement('div');
-                debugInfo.style.cssText = 'position:fixed;bottom:5px;right:5px;z-index:9999;background:rgba(0,0,0,0.5);color:white;padding:5px;font-size:10px;border-radius:3px;';
-                debugInfo.textContent = '微信环境已检测 | 分享准备就绪';
-                document.body.appendChild(debugInfo);
-            }
-
-            // 设置页面标题，优化微信分享
-            document.title = "重庆八中腾芳中学校 - 邀请函";
-
-            // 微信环境下添加分享配置信息
-            if (isWechat()) {
-                // 如果页面中有JSSDK，则使用JSSDK进行配置
-                if (typeof wx !== 'undefined' && wx.updateAppMessageShareData) {
-                    wx.ready(function() {
-                        wx.updateAppMessageShareData({ 
-                            title: '重庆八中腾芳中学校', 
-                            desc: '邀请函', 
-                            link: window.location.href, 
-                            imgUrl: 'https://tengfang-invitation.netlify.app/img/3.png'
-                        });
-                    });
-                }
-                
-                // 添加一个额外的元素帮助微信抓取图片
-                var shareImageHelper = document.createElement('div');
-                shareImageHelper.style.cssText = 'position:absolute; width:1px; height:1px; opacity:0.01; overflow:hidden;';
-                shareImageHelper.innerHTML = '<img src="https://tengfang-invitation.netlify.app/img/3.png" alt="重庆八中腾芳中学校邀请函">';
-                document.body.appendChild(shareImageHelper);
-            }
+            let scrollTimeout;
 
             // 确保页面指示器与实际页面数量一致
             if (pageDots.length !== pages.length) {
@@ -1033,12 +1166,14 @@
             // 初始化页面
             updateActivePage(0);
 
-            // 滚动事件处理
+            // 优化滚动事件处理，使用节流函数减少事件触发频率
             container.addEventListener("scroll", function() {
                 if (!isScrolling) {
                     isScrolling = true;
-                    checkActivePage();
-                    setTimeout(() => {
+                    clearTimeout(scrollTimeout);
+                    
+                    scrollTimeout = setTimeout(function() {
+                        checkActivePage();
                         isScrolling = false;
                     }, 50);
                 }
@@ -1053,9 +1188,8 @@
 
             // 触摸事件支持
             container.addEventListener("touchstart", function(e) {
-                e.preventDefault();
                 touchStartY = e.touches[0].clientY;
-            });
+            }, {passive: true});
 
             container.addEventListener("touchend", function(e) {
                 const touchEndY = e.changedTouches[0].clientY;
@@ -1068,7 +1202,7 @@
                     // 向下滑动，显示上一页
                     scrollToPage(currentPage - 1);
                 }
-            });
+            }, {passive: true});
 
             // 检查当前激活的页面
             function checkActivePage() {
@@ -1125,15 +1259,38 @@
                 });
             }
 
-            // 滚动到指定页面
+            // 滚动到指定页面，使用requestAnimationFrame提高动画流畅度
             function scrollToPage(index) {
                 if (index >= 0 && index < pages.length) {
                     const targetPage = pages[index];
-                    container.scrollTo({
-                        top: targetPage.offsetTop,
-                        behavior: "smooth"
-                    });
-                    updateActivePage(index);
+                    const startPosition = container.scrollTop;
+                    const targetPosition = targetPage.offsetTop;
+                    const distance = targetPosition - startPosition;
+                    const duration = 600; // 毫秒
+                    let startTime;
+                    
+                    function animation(currentTime) {
+                        if (!startTime) startTime = currentTime;
+                        const elapsedTime = currentTime - startTime;
+                        const progress = Math.min(elapsedTime / duration, 1);
+                        const easeProgress = easeInOutCubic(progress);
+                        
+                        container.scrollTop = startPosition + distance * easeProgress;
+                        
+                        if (elapsedTime < duration) {
+                            requestAnimationFrame(animation);
+                        } else {
+                            updateActivePage(index);
+                        }
+                    }
+                    
+                    function easeInOutCubic(t) {
+                        return t < 0.5 
+                            ? 4 * t * t * t 
+                            : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+                    }
+                    
+                    requestAnimationFrame(animation);
                 }
             }
 
